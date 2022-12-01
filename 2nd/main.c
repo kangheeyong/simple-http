@@ -42,12 +42,13 @@ void *thread_main(void *arg) {
 int main(int argc, char **argv) {
     struct protoent *protoent;
     int enable = 1;
-    int i;
+    int str_len, i;
     int newline_found = 0;
     int server_sockfd, client_sockfd;
     socklen_t client_len;
     struct sockaddr_in client_address, server_address;
     int server_port = 8090;
+    char buf[BUFSIZ];
 
 	struct epoll_event *ep_events;
 	struct epoll_event event;
@@ -115,7 +116,7 @@ int main(int argc, char **argv) {
 			}
 			else
 			{
-                str_len=read(ep_events[i].data.fd, buf, BUF_SIZE);
+                str_len=read(ep_events[i].data.fd, buf, BUFSIZ);
                 if(str_len==0)    // close request!
                 {
                     epoll_ctl(
@@ -133,18 +134,4 @@ int main(int argc, char **argv) {
 	close(server_sockfd);
 	close(epfd);
 	return 0;
-    // while (1) {
-    //     printf("wait\n");
-    //     client_len = sizeof(client_address);
-    //     client_sockfd = accept(server_sockfd, (struct sockaddr*)&client_address, &client_len);
-    //     struct thread_arg *arg = (struct thread_arg *)malloc(sizeof(struct thread_arg));
-    //     arg->sock = client_sockfd;
-    //     arg->addr = client_address;
-    //     // TODO: This code must call pthread_join or pthread_detach. Current impl make memory leak.
-    //     if (pthread_create(&(arg->self), NULL, &thread_main, (void *)arg) != 0) {
-    //         perror("pthread_create");
-    //         exit(EXIT_FAILURE);
-    //     }
-    // }
-    // return 0;
 }
