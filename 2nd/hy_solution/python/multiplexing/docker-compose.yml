@@ -1,0 +1,58 @@
+version: "3"
+
+networks:
+  backend:
+
+services:
+  server:
+    restart: always
+    build: ./
+    volumes:
+      - ./:/app
+    networks:
+      - backend
+    command: python3 server.py
+
+  client_1:
+    restart: always
+    build: ./
+    volumes:
+      - ./:/app
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    networks:
+      - backend
+    command: bash
+  
+  client_2:
+    restart: always
+    build: ./
+    volumes:
+      - ./:/app
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    networks:
+      - backend
+    command: bash
+
+  client_3:
+    restart: always
+    build: ./
+    volumes:
+      - ./:/app
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    networks:
+      - backend
+    command: bash
+
+  client_4:
+    restart: always
+    build: ./
+    volumes:
+      - ./:/app
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    networks:
+      - backend
+    command: bash

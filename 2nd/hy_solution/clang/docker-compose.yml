@@ -1,0 +1,62 @@
+version: "3"
+
+networks:
+  backend:
+
+services:
+  server:
+    restart: always
+    build: ./
+    volumes:
+      - ./:/app
+    ports:
+      - "9090:9090"
+    networks:
+      - backend
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    command: bash
+
+  client_1:
+    restart: always
+    build: ./
+    volumes:
+      - ./:/app
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    networks:
+      - backend
+    command: bash
+  
+  client_2:
+    restart: always
+    build: ./
+    volumes:
+      - ./:/app
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    networks:
+      - backend
+    command: bash
+
+  client_3:
+    restart: always
+    build: ./
+    volumes:
+      - ./:/app
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    networks:
+      - backend
+    command: bash
+
+  client_4:
+    restart: always
+    build: ./
+    volumes:
+      - ./:/app
+    stdin_open: true # docker run -i
+    tty: true # docker run -t
+    networks:
+      - backend
+    command: bash
